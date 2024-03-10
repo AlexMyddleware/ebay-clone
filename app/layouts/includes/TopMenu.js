@@ -83,9 +83,6 @@ export default function TopMenu() {
                             </div>
                         </li>
                         <li className="px-3 hover:underline cursor-pointer">
-                            Daily Deals
-                        </li>
-                        <li className="px-3 hover:underline cursor-pointer">
                             Help & Contact
                         </li>
                         
