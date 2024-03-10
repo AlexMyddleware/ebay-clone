@@ -144,35 +144,6 @@ export default function Checkout() {
     
                 <div className="relative flex items-baseline gap-4 justify-between mx-auto w-full">
                     <div className="w-[65%]">
-                        <div className="bg-white rounded-lg p-4 border">
-
-                            <div className="text-xl font-semibold mb-2">Shipping Address</div>
-
-                            <div>
-                                {!isLoadingAddress ?
-                                    <Link href="/address" className="text-blue-500 text-sm underline">
-                                        {addressDetails.name ? 'Update Address' : 'Add Address'}
-                                    </Link>
-                                : null}
-
-                                {!isLoadingAddress && addressDetails.name ?
-                                    <ul className="text-sm mt-2">
-                                        <li>Name: {addressDetails.name}</li>
-                                        <li>Address: {addressDetails.address}</li>
-                                        <li>Zip: {addressDetails.zipcode}</li>
-                                        <li>City: {addressDetails.city}</li>
-                                        <li>Country: {addressDetails.country}</li>
-                                    </ul>
-                                : null}
-
-                                {isLoadingAddress ?
-                                    <div className="flex items-center mt-1 gap-2">
-                                        <AiOutlineLoading3Quarters className="animate-spin"/>
-                                        Getting Address...
-                                    </div>
-                                : <div></div>}
-                            </div>
-                        </div>
 
                         <ClientOnly>
                             <div id="Items" className="bg-white rounded-lg mt-4">
