@@ -7,10 +7,8 @@ import { useUser } from "@/app/context/user";
 import { useCart } from "../context/cart";
 import { useEffect, useRef, useState } from "react";
 import useIsLoading from "../hooks/useIsLoading";
-import useUserAddress from "../hooks/useUserAddress";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import ClientOnly from "../components/ClientOnly";
 import { loadStripe } from '@stripe/stripe-js';
 
@@ -25,8 +23,6 @@ export default function Checkout() {
     let card = useRef(null)
     let clientSecret = useRef(null)
 
-    const [addressDetails, setAddressDetails] = useState({})
-    const [isLoadingAddress, setIsLoadingAddress] = useState(false)
 
     useEffect(() => {
         if (cart?.cartTotal() <= 0) {
@@ -36,19 +32,6 @@ export default function Checkout() {
 
         useIsLoading(true)
 
-        const getAdddress = async () => {
-            if (user?.id == null || user?.id == undefined) {
-                useIsLoading(false)
-                return
-            }
-
-            setIsLoadingAddress(true)
-            const response = await useUserAddress()
-            if (response) setAddressDetails(response)
-            setIsLoadingAddress(false)
-        }
-
-        getAdddress()
         setTimeout(() => stripeInit(), 300)
     }, [user])
 
@@ -85,11 +68,6 @@ export default function Checkout() {
     const pay = async (event) => {
         event.preventDefault()
 
-        if (Object.entries(addressDetails).length == 0) {
-            showError('Please add shipping address!')
-            return 
-        }
-        
         let result = await stripe.current.confirmCardPayment(clientSecret.current, {
             payment_method: { card: card.current },
         })
@@ -104,11 +82,6 @@ export default function Checkout() {
                     method: "POST",
                     body: JSON.stringify({
                         stripe_id: result.paymentIntent.id,
-                        name: addressDetails.name,
-                        address: addressDetails.address,
-                        zipcode: addressDetails.zipcode,
-                        city: addressDetails.city,
-                        country: addressDetails.country,
                         products: cart.getCart(),
                         total: cart.cartTotal()
                     })
