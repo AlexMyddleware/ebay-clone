@@ -92,13 +92,6 @@ export default function TopMenu() {
                         id="TopMenuRight"
                         className="flex items-center text-[11px] text-[#333333] px-2 h-8"
                     >
-                        <li 
-                            onClick={() => router.push('/address')} 
-                            className="flex items-center gap-2 px-3 hover:underline cursor-pointer"
-                        >
-                            <img width={32} src="/images/uk.png"/>
-                            Ship to
-                        </li>
                         <ClientOnly>
                             <li className="px-3 hover:underline cursor-pointer">
                                 <div onClick={() => router.push('/cart')} className="relative">
