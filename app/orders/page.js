@@ -57,14 +57,10 @@ export default function TopMenu() {
                                         {order?.stripe_id}
                                     </div>
 
-                                    <div className="pt-2">
-                                        <span className="font-bold mr-2">Delivery Address:</span>
-                                        {order?.name}, {order?.address}, {order?.zipcode}, {order?.city}, {order?.country}
-                                    </div>
 
                                     <div className="pt-2">
                                         <span className="font-bold mr-2">Total:</span>
-                                        USD{order?.total / 100}
+                                        {order?.total / 100} USD
                                     </div>
 
                                     <div className="pt-2">
