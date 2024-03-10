@@ -3,9 +3,7 @@
 export default function SubMenu() {
 
     const menuItems = [
-        { id: 1, name: 'Home' },
-        { id: 2, name: 'Saved' },
-        { id: 3, name: 'Electronics' },
+        { id: 1, name: 'Carbon Token' },
     ]
 
     return (
