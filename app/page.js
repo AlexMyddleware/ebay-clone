@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import CarouselComp from './components/CarouselComp'
 import Product from './components/Product';
 import MainLayout from './layouts/MainLayout';
 import useIsLoading from "@/app/hooks/useIsLoading"
@@ -26,8 +25,6 @@ export default function Home() {
   return (
     <>
         <MainLayout>
-          <CarouselComp />
-
           <div className="max-w-[1200px] mx-auto">
             <div className="text-2xl font-bold mt-4 mb-6 px-4">Products</div>
 
