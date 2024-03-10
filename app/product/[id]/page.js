@@ -60,7 +60,7 @@ export default function Product({ params }) {
                     Price: 
                     {product?.price 
                       ? <div className="font-bold text-[20px] ml-2">
-                          GBP £{(product?.price / 100).toFixed(2)}
+                          USD {(product?.price / 100).toFixed(2)}
                         </div> 
                     : null }
                   </div>
