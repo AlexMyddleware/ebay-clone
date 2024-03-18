@@ -1,6 +1,6 @@
 // Import necessary modules
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 import Product from '../../app/components/Product';
 
 test('renders Product component with given product', () => {
