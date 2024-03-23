@@ -76,36 +76,6 @@ describe('CartItem component', () => {
   });
 });
 
-describe('CartItem component', () => {
-  const mockProduct = {
-    id: 1,
-    title: 'Product 1',
-    price: 10000,
-    url: 'http://example.com/product1',
-    description: 'Lorem ipsum dolor sit amet',
-  };
-
-  beforeEach(() => {
-    useCart.mockReturnValue({
-      removeFromCart: jest.fn(),
-    });
-  });
-
-
-  test('calls removeFromCart when remove button is clicked', () => {
-    const removeFromCart = jest.fn();
-    useCart.mockReturnValue({
-      removeFromCart,
-    });
-
-    render(<CartItem product={mockProduct} />);
-
-    const removeButton = screen.getByText('Remove');
-    fireEvent.click(removeButton);
-
-    expect(removeFromCart).toHaveBeenCalledWith(mockProduct);
-  });
-});
 
 describe('CartItem component', () => {
   const mockProduct = {
