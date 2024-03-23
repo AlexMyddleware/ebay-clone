@@ -2,7 +2,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Product from '../../app/components/Product';
+import Product from '../../../app/components/Product';
 
 test('renders Product component with given product', () => {
     // Mock product
