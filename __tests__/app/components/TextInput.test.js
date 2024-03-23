@@ -25,3 +25,32 @@ test('calls onUpdate function on input change', () => {
     rtl.fireEvent.change(input, { target: { value: 'test' } });
     expect(mockOnUpdate).toHaveBeenCalledWith('test');
 });
+
+test('renders TextInput component with an empty value when no string prop is passed', () => {
+    rtl.render(<TextInput onUpdate={() => {}} />);
+    const input = rtl.screen.getByRole('textbox');
+    expect(input).toHaveValue('');
+});
+
+test('does not call onUpdate function when input does not change', () => {
+    const mockOnUpdate = jest.fn();
+    rtl.render(<TextInput string="test" onUpdate={mockOnUpdate} />);
+    const input = rtl.screen.getByRole('textbox');
+    rtl.fireEvent.change(input, { target: { value: 'test' } });
+    expect(mockOnUpdate).not.toHaveBeenCalled();
+});
+
+test('calls onUpdate function with the correct value on multiple input changes', () => {
+    const mockOnUpdate = jest.fn();
+    rtl.render(<TextInput string="" onUpdate={mockOnUpdate} />);
+    const input = rtl.screen.getByRole('textbox');
+    rtl.fireEvent.change(input, { target: { value: 'test1' } });
+    rtl.fireEvent.change(input, { target: { value: 'test2' } });
+    expect(mockOnUpdate).toHaveBeenLastCalledWith('test2');
+});
+
+test('displays error message when error prop is passed', () => {
+    rtl.render(<TextInput error="Error message" onUpdate={() => {}} />);
+    const errorMessage = rtl.screen.getByText('Error message');
+    expect(errorMessage).toBeInTheDocument();
+});
