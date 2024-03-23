@@ -77,3 +77,49 @@ describe('CartItem component', () => {
     expect(screen.getByText(mockProduct.description.substring(0, 150) + '...')).toBeInTheDocument();
   });
 });
+describe('CartItem component', () => {
+  const mockProduct = {
+    id: 1,
+    title: 'Product 1',
+    price: 10000,
+    url: 'http://example.com/product1',
+    description: 'Lorem ipsum dolor sit amet',
+  };
+
+  beforeEach(() => {
+    useCart.mockReturnValue({
+      removeFromCart: jest.fn(),
+    });
+  });
+
+  test('renders CartItem component with given product', () => {
+    render(<CartItem product={mockProduct} />);
+
+    expect(screen.getByText(mockProduct.title)).toBeInTheDocument();
+    expect(screen.getByText((content, node) => {
+      const hasText = (node) => node.textContent === "USD" + (mockProduct.price / 100).toFixed(2);
+      const nodeHasText = hasText(node);
+      const childrenDontHaveText = Array.from(node.children).every(
+        (child) => !hasText(child)
+      );
+
+      return nodeHasText && childrenDontHaveText;
+    })).toBeInTheDocument();
+    expect(screen.getByText('NEW')).toBeInTheDocument();
+    expect(screen.getByText(mockProduct.description.substring(0, 150) + '...')).toBeInTheDocument();
+  });
+
+  test('calls removeFromCart when remove button is clicked', () => {
+    const removeFromCart = jest.fn();
+    useCart.mockReturnValue({
+      removeFromCart,
+    });
+
+    render(<CartItem product={mockProduct} />);
+
+    const removeButton = screen.getByText('Remove');
+    fireEvent.click(removeButton);
+
+    expect(removeFromCart).toHaveBeenCalledWith(mockProduct);
+  });
+});
