@@ -3,7 +3,6 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { useCart } from '../../../app/context/cart';
 import CartItem from '../../../app/components/CartItem';
-import { ToastContainer } from 'react-toastify';
 
 
 global.confirm = jest.fn(() => true);
