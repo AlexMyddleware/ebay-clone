@@ -1,3 +1,5 @@
+// directory: C:\cplusplusfiles\ebayclone\app\checkout\page.js
+
 "use client";
 
 import CheckoutItem from "../components/CheckoutItem"
