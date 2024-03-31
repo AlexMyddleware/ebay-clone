@@ -207,27 +207,39 @@ clientSecret.current: This is the client secret of the payment intent. The clien
 
 The confirmCardPayment method returns a Promise that resolves with the result of the payment confirmation. The await keyword is used to pause the execution of the function until this Promise is resolved. -->
             payment_method: { card: card.current },
+<!-- we take the payment method from the card element. The payment method is specified in the options object of the confirmCardPayment method. In this case, the payment method is the Card Element that was created earlier with card.current = elements.current.create("card", { hidePostalCode: true, style: style }). -->
         })
     
         if (result.error) {
+<!-- we check if there is an error in the result object. If there is an error, we display the error message using the showError function. -->
             showError(result.error.message)
+<!-- we display the error message using the showError function. -->
         } else {
             useIsLoading(true)
+<!-- we set the loading state to true by calling useIsLoading(true). -->
 
             try {
+<!-- we use a try-catch block to handle any errors that may occur during the payment process. The try block contains the code that may throw an error, and the catch block contains the code to handle the error. -->
                 let response = await fetch('/api/orders/create', {
+<!-- we create the response variable and use the fetch function to make a request to the server. The fetch function takes two arguments: the URL of the server endpoint and an options object that specifies the details of the request. In this case, the URL is '/api/orders/create', which is the server endpoint that creates a new order. The options object specifies that the request is a POST request and includes the payment intent ID, the products in the cart, and the total amount of the order in the request body. -->
                     method: "POST",
                     body: JSON.stringify({
                         stripe_id: result.paymentIntent.id,
+<!-- the stripe id is set to the payment intent ID returned by the Stripe API. -->
                         products: cart.getCart(),
+<!-- the products are set to the products in the cart. -->
                         total: cart.cartTotal()
+<!-- the total amount of the order is set to the total amount of the cart. -->
                     })
                 })
                 
                 if (response.status == 200) {
                     toast.success('Order Complete!', { autoClose: 3000 })
+<!-- if the status of the response is 200, we display a success toast message saying "Order Complete!". -->
                     cart.clearCart()
+<!-- we clear the cart by calling the clearCart method of the cart object. -->
                     return router.push('/success')
+<!-- we redirect the user to the success page ('/success'). -->
                 }
             } catch (error) {
                 console.log(error)
@@ -235,6 +247,7 @@ The confirmCardPayment method returns a Promise that resolves with the result of
             }
 
             useIsLoading(false)
+<!-- we set the loading state to false by calling useIsLoading(false). -->
         }
     }
 
@@ -245,7 +258,39 @@ The confirmCardPayment method returns a Promise that resolves with the result of
         setTimeout(() => { errorMsg.textContent = "" }, 3000);
     };
 
+<!-- The showError function is a custom function that displays an error message to the user. It takes one argument, errorMsgText, which is the text of the error message to display.
+
+Here's what it does:
+
+let errorMsg = document.querySelector("#card-error");: This line selects the DOM element with the ID "card-error". This is where the error message will be displayed.
+
+toast.error(errorMsgText, { autoClose: 3000 }): This line uses the toast.error function from the react-toastify library to display a toast notification with the error message. The toast notification will automatically close after 3000 milliseconds, or 3 seconds.
+
+errorMsg.textContent = errorMsgText;: This line sets the text content of the "card-error" element to the error message. This displays the error message in the "card-error" element.
+
+setTimeout(() => { errorMsg.textContent = "" }, 3000);: This line uses the setTimeout function to clear the error message after 3000 milliseconds, or 3 seconds. The setTimeout function takes two arguments: a function to execute after a delay, and the delay in milliseconds. In this case, the function clears the error message, and the delay is 3000 milliseconds.
+
+So, the showError function displays the error message in a toast notification and the "card-error" element, and then clears the error message after 3 seconds. -->
+
+<!-- In JavaScript, functions can be defined in several ways, including function declarations and function expressions.
+
+A function declaration is of the form function functionName() {...}.
+
+A function expression can be of the form const functionName = function() {...} or const functionName = () => {...} (the latter is an arrow function expression).
+
+The const keyword is used in function expressions to declare a variable that is assigned the function. This has a few implications:
+
+The function is defined when the line of code is reached, not when the script is loaded. This is known as "function expression hoisting". In contrast, function declarations are hoisted to the top of their scope and can be used before they are defined.
+
+The function name is actually the variable name, and it cannot be changed. This can prevent bugs caused by accidentally reassigning the function.
+
+The function can be passed around as a value, just like any other value. This is useful for higher-order functions, which are functions that take other functions as arguments or return functions.
+
+In your code, const stripeInit = async () => {...} and const pay = async (event) => {...} are function expressions. They are defined as const because they are not meant to be reassigned, and they are defined where they are needed in the code. They are also asynchronous functions, which means they return a Promise and can use the await keyword to pause their execution until a Promise is resolved. const showError = (errorMsgText) is not an asynchronous function, so it does not return a Promise or use the await keyword. -->
+
+<!-- return the Checkout component, it is a default component of the page -->
   return (
+
     <>
         <MainLayout>
             <div id="CheckoutPage" className="mt-4 max-w-[1100px] mx-auto">
@@ -262,6 +307,15 @@ The confirmCardPayment method returns a Promise that resolves with the result of
                                 ))}
                             </div>
                         </ClientOnly>
+<!-- <ClientOnly> is a wrapper component that ensures its children are only rendered on the client side, not during server-side rendering. This can be useful when the child components rely on window or other browser-specific APIs, which are not available during server-side rendering.
+
+Inside the <ClientOnly> component, there's a div with the id "Items" and several CSS classes for styling. This div will contain the list of items in the shopping cart.
+
+{cart.getCart().map(product => (...))} is a JavaScript expression inside JSX. It's using the map function to create an array of <CheckoutItem> components, one for each product in the cart.
+
+cart.getCart() is a function that returns an array of products in the cart. For each product in this array, map calls the provided function, which returns a <CheckoutItem> component.
+
+<CheckoutItem key={product.id} product={product} /> is a React component that represents a single item in the checkout. It receives two props: key and product. The key prop is a special prop in React that helps it identify which items have changed, are added, or are removed, and it should be a unique value among its siblings. The product prop is the product object for the item, which can be used to display the product details. -->
                     </div>
                     
                     <div id="PlaceOrder" className="relative -top-[6px] w-[35%] border rounded-lg">
@@ -269,7 +323,9 @@ The confirmCardPayment method returns a Promise that resolves with the result of
                             <div className="p-4">
                                 <div className="flex items-baseline justify-between text-sm mb-1">
                                     <div>Items ({cart.getCart().length})</div>
+<!-- get number of cart items -->
                                     <div>USD{(cart.cartTotal() / 100).toFixed(2)}</div>
+<!-- get the total cost of the cart items divided by 100 rounded to 2 decimal places -->
                                 </div>
 
                                 <div className="border-t" />
@@ -282,6 +338,7 @@ The confirmCardPayment method returns a Promise that resolves with the result of
                                 </div>
 
                                 <form onSubmit={pay}>
+<!-- onSubmit works as a submit button, it is used to submit the form data to the server. {pay} is the function that is called when the form is submitted. and is defined with const pay = async (event) => {...} -->
                                     <div 
                                         className="border border-gray-500 p-2 rounded-sm" 
                                         id="card-element" 
