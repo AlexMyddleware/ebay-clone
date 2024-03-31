@@ -1,5 +1,5 @@
 'use client'
-
+// directory: C:\cplusplusfiles\ebayclone\app\layouts\MainLayout.js
 import TopMenu from './includes/TopMenu'
 import MainHeader from './includes/MainHeader'
 import Footer from './includes/Footer'
