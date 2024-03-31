@@ -4,7 +4,8 @@ import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs'
 <!-- createMiddlewareClient is a function that creates a Supabase client instance with the necessary configuration for server-side authentication. It takes an object with req and res properties as input and returns a Supabase client instance. -->
 import { NextResponse } from 'next/server'
 
-<!-- It imports the necessary modules: createMiddlewareClient from @supabase/auth-helpers-nextjs and NextResponse from next/server -->
+<!-- nextResponse is a module that provides utilities for working with Next.js responses. It exports an object named NextResponse with various methods for creating and manipulating responses. -->
+
 
 <!-- It exports an asynchronous function named middleware that takes a request object (req) as a parameter. -->
 
