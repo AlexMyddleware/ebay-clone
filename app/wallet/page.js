@@ -1,3 +1,5 @@
+// directory: C:\cplusplusfiles\ebayclone\app\wallet\page.js
+
 "use client"
 
 import Link from "next/link";
@@ -16,12 +18,20 @@ export default function WalletPage() {
 
     const getWallet = async () => {
         try {
-            if (!user && !user?.id) return
+            console.log('user', user)
+            if (!user || !user.id) return
             const response = await fetch("/api/wallet")
+            console.log('response', response)
+            if (!response.ok) {
+                console.log('response text', await response.text())
+                throw new Error('Failed to fetch wallet')
+            }
             const result = await response.json()
             setWallet(result)
+            console.log('wallet', result);
             useIsLoading(false)
         } catch (error) {
+            console.log(error)
             toast.error('Something went wrong?', { autoClose: 3000 })
             useIsLoading(false)
         }
@@ -47,35 +57,16 @@ export default function WalletPage() {
                                 You have no wallet history
                             </div>
                         : null}
-
-                        {wallet.map(transaction => (
-                            <div key={transaction?.id} className="text-sm pl-[50px]">
+                        {wallet.Tokens.map((token) => (
+                            <div key={token.id} className="text-sm pl-[50px]">
                                 <div className="border-b py-1">
-
-                                    <div className="pt-2">
-                                        <span className="font-bold mr-2">Transaction ID:</span>
-                                        {transaction?.transaction_id}
-                                    </div>
-
-
-                                    <div className="pt-2">
-                                        <span className="font-bold mr-2">Amount:</span>
-                                        {transaction?.amount / 100} USD
-                                    </div>
-
-                                    <div className="pt-2">
-                                        <span className="font-bold mr-2">Transaction Created:</span>
-                                        {moment(transaction?.created_at).calendar()}
-                                    </div>
-
-                                    <div className="py-2">
-                                        <span className="font-bold mr-2">Transaction Type:</span>
-                                        {transaction?.type}
-                                    </div>
-
+                                    <p>Token ID: {token.id}</p>
+                                    <p>Token Name: {token.name}</p>
+                                    <p>Token Value: {token.value}</p>
                                 </div>
                             </div>
                         ))}
+
                     </div>
                 </div>
             </MainLayout>
