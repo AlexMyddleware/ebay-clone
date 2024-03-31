@@ -56,10 +56,6 @@ export default function Cart() {
                               <div>Items ({cart.getCart().length})</div>
                               <div>USD{(cart.cartTotal() / 100).toFixed(2)}</div>
                           </div>
-                          <div className="flex items-center justify-between mb-4 text-sm">
-                              <div>Shipping:</div>
-                              <div>Free</div>
-                          </div>
 
                           <div className="border-b border-gray-300"/>
 
