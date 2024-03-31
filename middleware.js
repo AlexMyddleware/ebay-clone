@@ -18,7 +18,7 @@ export async function middleware(req) {
     req.nextUrl.pathname.startsWith('/checkout') ||
     req.nextUrl.pathname.startsWith('/success') ||
     req.nextUrl.pathname.startsWith('/orders') ||
-    req.nextUrl.pathname.startsWith('/address')
+    req.nextUrl.pathname.startsWith('/wallet')
   )) {
     return NextResponse.redirect(new URL('/auth', req.url))
   }
