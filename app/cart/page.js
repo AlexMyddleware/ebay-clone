@@ -1,3 +1,5 @@
+// directory C:\cplusplusfiles\ebayclone\app\cart\page.js
+
 "use client"
 
 import MainLayout from "../layouts/MainLayout"
