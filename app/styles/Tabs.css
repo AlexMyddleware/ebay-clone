@@ -9,8 +9,76 @@ h2 {
 
 .container {
     display: flex;
-    /* flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px; */
+    flex-direction: column;
+    position: relative;
+    width: 300px;
+    height: auto;
+    background: #b1b2c2;
+    margin: 100px auto;
+    word-break: break-all;
+    border: 1px solid rgba(0, 0, 0, 0.274);
+    box-shadow: 10px 10px 10px #1cfdff;
 };
+
+.container:hover {
+    box-shadow: 10px 10px 10px #ae2e41;
+}
+
+.bloc-tabs {
+    display: flex;
+
+}
+
+.tabs {
+    padding: 15px;
+    text-align: center;
+    width: 50%;
+    background: #3bd73e;
+    cursor: pointer;
+    box-sizing: content-box;
+    position: relative;
+    outline: none;
+}
+
+.tabs:not(:last-child) {
+    border-right: 1px solid #9a33ce;
+}
+
+.active-tabs {
+    background-image: linear-gradient(to top right, #c339f8, #6093c2);
+    color: #fff;
+}
+
+.content-tabs {
+    flex-grow: 1; 
+}
+
+.content {
+    background-image: linear-gradient(to top right, #c339f8, #6093c2);
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    /* display: none; */
+    color: #fff;
+}
+
+.content h2 {
+    padding: 0px 0px 5px 0px;
+}
+
+.content hr {
+    width: 100px;
+    height: 2px;
+    background: #222;
+    margin-bottom: 5px;
+}
+
+.content p {
+    width: 100%;
+    height: 100%;
+
+}
+
+.active-content {
+    display: block;
+}
