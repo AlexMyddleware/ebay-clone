@@ -15,7 +15,11 @@ export async function GET() {
         
         const wallet = await prisma.wallet.findUnique({
             where: { user_id: user?.id },
-            include: { Tokens: true }
+            select: {
+                total_balance: true,
+                calenton_coins: true,
+                total_number_of_tokens: true
+            }
         })
 
         if (!wallet) throw Error('No wallet found')
