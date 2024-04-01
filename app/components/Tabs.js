@@ -22,7 +22,7 @@ const Tabs = () => {
                     </button>
                 </div>
                 <div className="content-tabs">
-                    <div className="content active-content">
+                    <div className="content">
                         <h2>Experience</h2>
                         <hr />
                         <li>Worked at Google</li>
@@ -31,7 +31,7 @@ const Tabs = () => {
                         <li>Worked at Microsoft</li>
                         <li>Worked at Netflix</li>
                     </div>
-                    <div className="content active-content">
+                    <div className="content">
                         <h2>Skills</h2>
                         <hr />
                         <li>HTML</li>
