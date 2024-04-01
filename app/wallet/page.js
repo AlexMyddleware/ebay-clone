@@ -10,6 +10,7 @@ import useIsLoading from "../hooks/useIsLoading";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify"
 import moment from "moment";
+import Tabs from "@/app/components/Tabs";
 
 export default function WalletPage() {
 
@@ -74,8 +75,10 @@ export default function WalletPage() {
                     </div>
                     <div id="wallet_actions" className="relative -top-[6px] w-[35%] border rounded-lg">
                         <div className="tabs">
-                            <button className="tab">Withdraw</button>
-                            <button className="tab">Deposit</button>
+                            {/* <<button className="tab">Withdraw</button>
+                            <button className="tab">Deposit</button>> */}
+                            <Tabs>
+                            </Tabs>
                         </div>
                     </div>
                 </div>
