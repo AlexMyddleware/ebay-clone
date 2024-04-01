@@ -1,84 +1,49 @@
 /* directory: C:\cplusplusfiles\ebayclone\app\styles\Tabs.css */
 
-h2 {
-    color: #d73b3b;
-    font-size: 1.5em;
-    margin: 0;
-    padding: 0;
-}
-
 .container {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    width: 300px;
-    height: auto;
-    background: #b1b2c2;
-    margin: 100px auto;
-    word-break: break-all;
-    border: 1px solid rgba(0, 0, 0, 0.274);
-    box-shadow: 10px 10px 10px #1cfdff;
+    @apply flex flex-col relative w-72 h-auto bg-gray-100 m-auto break-words border border-gray-300 shadow-lg;
 }
 
 .container:hover {
-    box-shadow: 10px 10px 10px #ae2e41;
+    @apply shadow-xl;
 }
 
 .bloc-tabs {
-    display: flex;
-
+    @apply flex;
 }
 
 .tabs {
-    padding: 15px;
-    text-align: center;
-    width: 50%;
-    background: #3bd73e;
-    cursor: pointer;
-    box-sizing: content-box;
-    position: relative;
-    outline: none;
+    @apply px-6 py-4 text-center w-1/2 bg-gray-200 cursor-pointer box-border relative outline-none;
 }
 
 .tabs:not(:last-child) {
-    border-right: 1px solid #9a33ce;
+    @apply border-r border-gray-300;
 }
 
 .active-tabs {
-    background-image: linear-gradient(to top right, #c339f8, #6093c2);
-    color: #fff;
+    @apply bg-gray-300 text-gray-700;
 }
 
 .content-tabs {
-    flex-grow: 1; 
+    @apply flex-grow;
 }
 
 .content {
-    background-image: linear-gradient(to top right, #c339f8, #6093c2);
-    padding: 20px;
-    width: 100%;
-    height: 100%;
-    display: none;
-    color: #fff;
+    @apply bg-gray-300 p-5 w-full h-full text-gray-700 hidden;
 }
 
 .content h2 {
-    padding: 0px 0px 5px 0px;
+    @apply pb-1;
 }
 
 .content hr {
-    width: 100px;
-    height: 2px;
-    background: #222;
-    margin-bottom: 5px;
+    @apply w-24 h-0.5 bg-black mb-1;
 }
 
 .content p {
-    width: 100%;
-    height: 100%;
-
+    @apply w-full h-full;
 }
 
 .active-content {
-    display: block;
+    @apply block;
 }
