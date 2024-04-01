@@ -23,7 +23,7 @@ const Tabs = () => {
                 </div>
                 <div className="content-tabs">
                     <div className="content active-content">
-                        
+                        <h2>Education</h2>
                     </div>
                 </div>
             </div>
