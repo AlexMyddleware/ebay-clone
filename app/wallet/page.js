@@ -44,32 +44,42 @@ export default function WalletPage() {
     
 
     return (
-        <>
-            <MainLayout>
-                <div id="WalletPage" className="mt-4 max-w-[1200px] mx-auto px-2 min-h-[50vh]">
-                    <div className="bg-white w-full p-6 min-h-[150px]">
-                        <div className="flex items-center text-xl">
-                            <AiFillWallet className="text-green-500" size={35}/>
-                            <span className="pl-4">Wallet</span>
-                        </div>
-                        {wallet.length < 1 ?
-                            <div className="flex items-center justify-center">
-                                You have no wallet history
-                            </div>
-                        : null}
-                        {wallet.Tokens.map((token) => (
-                            <div key={token.id} className="text-sm pl-[50px]">
-                                <div className="border-b py-1">
-                                    <p>Token ID: {token.id}</p>
-                                    <p>Token Name: {token.name}</p>
-                                    <p>Token Value: {token.value}</p>
-                                </div>
-                            </div>
-                        ))}
+        <MainLayout>
+            <div id="WalletPage" className="mt-4 max-w-[1100px] mx-auto">
+                <div className="text-2xl font-bold mt-4 mb-4">Wallet</div>
 
+                <div className="relative flex items-baseline gap-4 justify-between mx-auto w-full">
+
+                    <div id="WalletSummary" className="relative -top-[6px] w-[35%] border rounded-lg">
+                        <div className="p-4">
+                            <div className="flex items-center justify-between my-4">
+                                <div className="font-semibold">Wallet Summary</div>
+                            </div>
+
+                            <div className="flex items-baseline justify-between text-sm mb-1">
+                                <div>Total Balance</div>
+                                <div>USD {(wallet.total_balance / 100).toFixed(2)}</div>
+                            </div>
+
+                            <div className="flex items-baseline justify-between text-sm mb-1">
+                                <div>Calenton Coins</div>
+                                <div>{wallet.calenton_coins}</div>
+                            </div>
+
+                            <div className="flex items-baseline justify-between text-sm mb-1">
+                                <div>Total Number of Tokens</div>
+                                <div>{wallet.total_number_of_tokens}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="wallet_actions" className="relative -top-[6px] w-[35%] border rounded-lg">
+                        <div className="tabs">
+                            <button className="tab">Withdraw</button>
+                            <button className="tab">Deposit</button>
+                        </div>
                     </div>
                 </div>
-            </MainLayout>
-        </>
+            </div>
+        </MainLayout>
     )
 }
