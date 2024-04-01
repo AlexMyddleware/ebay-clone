@@ -25,30 +25,30 @@ const Tabs = () => {
                     <div className="content active-content">
                         <h2>Experience</h2>
                         <hr />
-                        <p><li>Worked at Google</li></p>
-                        <p><li>Worked at Amazon</li></p>
-                        <p><li>Worked at Facebook</li></p>
-                        <p><li>Worked at Microsoft</li></p>
-                        <p><li>Worked at Netflix</li></p>
+                        <li>Worked at Google</li>
+                        <li>Worked at Amazon</li>
+                        <li>Worked at Facebook</li>
+                        <li>Worked at Microsoft</li>
+                        <li>Worked at Netflix</li>
                     </div>
                     <div className="content active-content">
                         <h2>Skills</h2>
                         <hr />
-                        <p><li>HTML</li></p>
-                        <p><li>CSS</li></p>
-                        <p><li>Tailwind</li></p>
-                        <p><li>Bootstrap</li></p>
-                        <p><li>Javascript</li></p>
-                        <p><li>React</li></p>
-                        <p><li>Typescript</li></p>
-                        <p><li>Express</li></p>
+                        <li>HTML</li>
+                        <li>CSS</li>
+                        <li>Tailwind</li>
+                        <li>Bootstrap</li>
+                        <li>Javascript</li>
+                        <li>React</li>
+                        <li>Typescript</li>
+                        <li>Express</li>
                     </div>
                     <div className="content active-content">
                         <h2>Education</h2>
                         <hr />
-                        <p><li>Computer Science</li></p>
-                        <p><li>High School</li></p>
-                        <p><li>School</li></p>
+                        <li>Computer Science</li>
+                        <li>High School</li>
+                        <li>School</li>
                     </div>
                 </div>
             </div>
