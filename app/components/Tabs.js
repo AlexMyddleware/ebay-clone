@@ -9,7 +9,24 @@ import React from "react";
 const Tabs = () => {
     return (
         <div>
-            <h2>hello</h2>
+            <div className="container">
+                <div className="bloc-tabs">
+                    <button className="tabs active-tabs">
+                        Education
+                    </button>
+                    <button className="tabs">
+                        Experience
+                    </button>
+                    <button className="tabs">
+                        Skills
+                    </button>
+                </div>
+                <div className="content-tabs">
+                    <div className="content active-content">
+                        
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
