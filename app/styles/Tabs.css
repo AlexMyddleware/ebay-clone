@@ -13,7 +13,7 @@
 }
 
 .tabs {
-    @apply px-6 py-4 text-center w-1/2 bg-gray-200 cursor-pointer box-border relative outline-none;
+    @apply px-6 py-4 text-center w-1/2 bg-white cursor-pointer box-border relative outline-none;
 }
 
 .tabs:not(:last-child) {
@@ -21,7 +21,7 @@
 }
 
 .active-tabs {
-    @apply bg-gray-300 text-gray-700;
+    @apply bg-gray-50 text-black;
 }
 
 .content-tabs {
@@ -29,7 +29,7 @@
 }
 
 .content {
-    @apply bg-gray-300 p-5 w-full h-full text-gray-700 hidden;
+    @apply bg-gray-50 p-5 w-full h-full text-gray-700 hidden;
 }
 
 .content h2 {
