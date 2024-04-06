@@ -6,8 +6,8 @@ async function seedProducts() {
 
     await prisma.products.create({
       data: {
-        title: "Carbon Token",
-        description: "This token is meant to be used for carbon credit.",
+        title: "canlenton coin",
+        description: "This currency is worth 1 USD. It can be used to buy and sell Tokens. You can get more by selling Tokens or by converting USD to Calenton Coins. You can also convert Calenton Coins to USD.",
         url: "https://picsum.photos/id/28",
         price: 2500 // EG: 25.00
       },
