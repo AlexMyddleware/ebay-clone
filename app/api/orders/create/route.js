@@ -31,6 +31,7 @@ export async function POST(req) {
                 data: {
                     order_id: order.id,
                     product_id: Number(prod.id),
+                    quantity: Number(prod.quantity)
                 }
             })
         });
