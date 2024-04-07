@@ -10,6 +10,7 @@ export default function Product({ params }) {
   const cart = useCart()
 
   const [product, setProduct] = useState({})
+  const [quantity, setQuantity] = useState(1) // new state for quantity
 
   const getProduct = async () => {
     useIsLoading(true)
@@ -20,7 +21,6 @@ export default function Product({ params }) {
     setProduct(prod)
     cart.isItemAddedToCart(prod)
     useIsLoading(false)
-
   }
 
   useEffect(() => { 
@@ -30,24 +30,27 @@ export default function Product({ params }) {
   return (
     <>
       <MainLayout>
-
         <div className="max-w-[1200px] mx-auto">
           <div className="flex px-4 py-10">
-
             {product?.url 
               ? <img className="w-[40%] rounded-lg" src={product?.url+'/280'} /> 
               : <div className="w-[40%]"></div> 
             }
-
             <div className="px-4 w-full">
               <div className="font-bold text-xl">{product?.title}</div>
               <div className="border-b py-1" />
-
               <div className="pt-3 pb-2">
+                <label htmlFor="quantity">Quantity:</label>
+                <input 
+                  type="number" 
+                  id="quantity" 
+                  value={quantity} 
+                  onChange={(e) => setQuantity(Math.min(e.target.value, 100000 / product?.price))}
+                  min="1"
+                  max={Math.floor(100000 / product?.price)}
+                />
               </div>
-
               <div className="border-b py-1" />
-
               <div className="pt-3">
                 <div className="w-full flex items-center justify-between">
                   <div className="flex items-center">
@@ -58,13 +61,21 @@ export default function Product({ params }) {
                         </div> 
                     : null }
                   </div>
+                  <div className="flex items-center">
+                    Total Price: 
+                    {product?.price && quantity
+                      ? <div className="font-bold text-[20px] ml-2">
+                          USD {(product?.price * quantity / 100).toFixed(2)}
+                        </div> 
+                    : null }
+                  </div>
                   <button 
                     onClick={() => {
                       if (cart.isItemAdded) {
                         cart.removeFromCart(product)
                         toast.info('Removed from cart', { autoClose: 3000 })
                       } else {
-                        cart.addToCart(product)
+                        cart.addToCart({ ...product, quantity }) // pass quantity when adding to cart
                         toast.success('Added to cart', { autoClose: 3000 })
                       }
                     }} 
@@ -77,16 +88,11 @@ export default function Product({ params }) {
                   </button>
                 </div>
               </div>
-
               <div className="border-b py-1" />
-
-
             </div>
           </div>
         </div>
-
-
-        </MainLayout>
+      </MainLayout>
     </>
   )
 }
