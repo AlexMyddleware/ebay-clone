@@ -76,13 +76,14 @@ export default function TopMenu() {
                                     <div className="flex items-center gap-4">
                                         {order?.orderItem.map(item => (
                                             <div key={item.id} className="flex items-center">
-                                                <Link 
-                                                    className="py-1 hover:underline text-blue-500 font-bold" 
+                                                <Link
+                                                    className="py-1 hover:underline text-blue-500 font-bold"
                                                     href={`/product/${item.product_id}`}
                                                 >
-                                                    <img className="rounded" width="120" src={item.product.url+'/120'} />
+                                                    <img className="rounded" width="120" src={item.product.url + '/120'} />
                                                     {item.product.title}
                                                 </Link>
+                                                <div>Quantity: {item.quantity}</div>
                                             </div>
                                         ))}
                                     </div>
