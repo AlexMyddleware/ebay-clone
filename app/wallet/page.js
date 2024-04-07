@@ -11,25 +11,27 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify"
 import moment from "moment";
 import Tabs from "@/app/components/Tabs";
+import { useForm } from "react-hook-form";
 
 export default function WalletPage() {
 
     const { user } = useUser() 
     const [wallet, setWallet] = useState([])
+    const { register, handleSubmit } = useForm();
 
     const getWallet = async () => {
         try {
-            console.log('user', user)
+            // console.log('user', user)
             if (!user || !user.id) return
             const response = await fetch("/api/wallet")
-            console.log('response', response)
+            // console.log('response', response)
             if (!response.ok) {
-                console.log('response text', await response.text())
+                // console.log('response text', await response.text())
                 throw new Error('Failed to fetch wallet')
             }
             const result = await response.json()
             setWallet(result)
-            console.log('wallet', result);
+            // console.log('wallet', result);
             useIsLoading(false)
         } catch (error) {
             console.log(error)
@@ -37,6 +39,39 @@ export default function WalletPage() {
             useIsLoading(false)
         }
     }
+
+    const convertUSDToCoins = async (data) => {
+        const amount = data.amount;
+        // console.log('data', data)
+        // console.log('amount', amount)
+        // console.log('wallet total balance', wallet.total_balance)
+
+        if (wallet.total_balance < amount) {
+            toast.error('Insufficient USD balance', { autoClose: 3000 });
+            return;
+        }
+        try {
+            const response = await fetch('/api/wallet/convert', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userId: user.id,
+                    amount: amount,
+                }),
+            });
+            if (!response.ok) {
+                throw new Error('Failed to convert USD to Calenton coins');
+            }
+            const result = await response.json();
+            setWallet(result);
+            toast.success('Conversion successful!', { autoClose: 3000 });
+        } catch (error) {
+            console.log(error);
+            toast.error('Something went wrong', { autoClose: 3000 });
+        }
+    };
 
     useEffect(() => {
         useIsLoading(true)
@@ -74,6 +109,10 @@ export default function WalletPage() {
                         </div>
                     </div>
                     <div id="wallet_actions" className="relative -top-[6px] w-[35%] border rounded-lg">
+                        <form onSubmit={handleSubmit(convertUSDToCoins)}>
+                            <input type="number" placeholder="Amount in USD" {...register("amount", { required: true })} />
+                            <button type="submit">Convert USD to Calenton Coins</button>
+                        </form>
                         <div className="tabs">
                             {/* <<button className="tab">Withdraw</button>
                             <button className="tab">Deposit</button>> */}
