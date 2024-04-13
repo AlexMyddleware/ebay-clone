@@ -36,6 +36,14 @@ export async function POST(req) {
             throw Error('Insufficient USD balance');
         }
 
+        if (isNaN(amount)) {
+            throw Error('Amount should be a number');
+        }
+
+        if (amount <= 0 || !Number.isInteger(amount)) {
+            throw Error('Amount should be a positive integer');
+        }
+
         const updatedWallet = await prisma.wallet.update({
                         where: { user_id: user?.id },
                         data: {
@@ -55,8 +63,7 @@ export async function POST(req) {
         //return res.status(200).json(updatedWallet);
         return NextResponse.json(updatedWallet);
     } catch (error) {
-        console.log(error);
         await prisma.$disconnect();
-        return new NextResponse('Something went wrong', { status: 400 });
+        return NextResponse.json({ error: error.message }, { status: 400 });
     }
 }

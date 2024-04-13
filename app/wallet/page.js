@@ -71,13 +71,15 @@ export default function WalletPage() {
                 }),
             });
             if (!response.ok) {
-                throw new Error('Failed to convert USD to Calenton coins');
+                const errorData = await response.json();
+                console.log('Error data:', errorData);
+                throw new Error(errorData.error);
             }
             const result = await response.json();
             setWallet(result);
             toast.success('Conversion successful!', { autoClose: 3000 });
         } catch (error) {
-            toast.error('Something went wrong', { autoClose: 3000 });
+            toast.error(error.message, { autoClose: 3000 });
         }
     };
 
