@@ -21,17 +21,13 @@ export default function WalletPage() {
 
     const getWallet = async () => {
         try {
-            // console.log('user', user)
             if (!user || !user.id) return
             const response = await fetch("/api/wallet")
-            // console.log('response', response)
             if (!response.ok) {
-                // console.log('response text', await response.text())
                 throw new Error('Failed to fetch wallet')
             }
             const result = await response.json()
             setWallet(result)
-            // console.log('wallet', result);
             useIsLoading(false)
         } catch (error) {
             console.log(error)
@@ -41,15 +37,28 @@ export default function WalletPage() {
     }
 
     const convertUSDToCoins = async (data) => {
-        const amount = data.amount;
-        // console.log('data', data)
-        // console.log('amount', amount)
-        // console.log('wallet total balance', wallet.total_balance)
+        const amount = Number(data.amount);
 
-        if (wallet.total_balance < amount) {
+        if (!amount) {
+            toast.error('Please enter an amount', { autoClose: 3000 });
+            return;
+        }
+
+        if (Number(wallet.total_balance) < amount) {
             toast.error('Insufficient USD balance', { autoClose: 3000 });
             return;
         }
+
+        if (isNaN(amount)) {
+            toast.error('Amount should be a number', { autoClose: 3000 });
+            return;
+        }
+
+        if (amount <= 0 || !Number.isInteger(amount)) {
+            toast.error('Amount should be a positive integer', { autoClose: 3000 });
+            return;
+        }
+
         try {
             const response = await fetch('/api/wallet/convert', {
                 method: 'POST',
@@ -68,7 +77,6 @@ export default function WalletPage() {
             setWallet(result);
             toast.success('Conversion successful!', { autoClose: 3000 });
         } catch (error) {
-            console.log(error);
             toast.error('Something went wrong', { autoClose: 3000 });
         }
     };
