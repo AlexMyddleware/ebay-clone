@@ -9,10 +9,6 @@ export async function POST(req) {
     try {
         const { data: { user } } = await supabase.auth.getUser()
 
-        console.log('WE ARE IN THE ORDERS API ROUTE GANDALF');
-        // console log the current route
-        // console.log('ROUTE', req)
-
         if (!user) throw Error('No user')
 
         const wallet = await prisma.wallet.findUnique({
@@ -25,13 +21,9 @@ export async function POST(req) {
 
         if (!wallet) throw Error('No wallet found')
 
-        console.log('WALLET', wallet);
-
         const body = await req.json();
         const amount = Number(body.amount);
         
-        console.log('amount', amount)
-
         if (wallet.total_balance < amount) {
             throw Error('Insufficient USD balance');
         }
@@ -56,11 +48,8 @@ export async function POST(req) {
                         }
                     })
 
-        console.log('UPDATED WALLET', updatedWallet);
-
         await prisma.$disconnect();
         
-        //return res.status(200).json(updatedWallet);
         return NextResponse.json(updatedWallet);
     } catch (error) {
         await prisma.$disconnect();

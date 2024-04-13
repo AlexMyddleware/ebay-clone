@@ -72,7 +72,6 @@ export default function WalletPage() {
             });
             if (!response.ok) {
                 const errorData = await response.json();
-                console.log('Error data:', errorData);
                 throw new Error(errorData.error);
             }
             const result = await response.json();
