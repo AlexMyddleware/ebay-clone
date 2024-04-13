@@ -36,6 +36,14 @@ export async function POST(req) {
             })
         });
 
+        const totalCost = body.products.reduce((acc, prod) => {
+            return acc + (prod.price * prod.quantity)
+        }, 0)
+
+        const wallet = await prisma.wallets.findFirst({
+            where: { user_id: user?.id }
+        })
+
         await prisma.$disconnect();
         return NextResponse.json('Order Complete', { status: 200 });
     } catch (error) {
